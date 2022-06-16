@@ -1,0 +1,6 @@
+venv/
+__pycache__/
+Logs/
+.py[cod]
+test.py
+config.py
