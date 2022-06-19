@@ -21,9 +21,8 @@ class GetHTML:
 
 
 class TMData:
-    def __init__(self, number, classes):
+    def __init__(self, number):
         self.number = number
-        self.classes = classes
 
         self.html = GetHTML(self.number)
         self.html.get_soup()
