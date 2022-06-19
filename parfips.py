@@ -4,7 +4,7 @@ import requests
 
 class GetHTML:
     '''
-    Класс создает объект soup по номенру товарного знака
+    Класс создает объект soup по номеру товарного знака
     '''
     page_soup = None
 
@@ -44,11 +44,15 @@ class TMData:
     def get_holder(self):
         pass
 
-    def get_short_classes(self):
-        pass
-
     def get_classes(self):
-        pass
+        all_p_tag = html.page_soup.find_all('p', class_='bib')
+        classes = [goods.text.split('.')[0].replace('\n\t\t\t', '') for goods in [c for c in all_p_tag if '(511)' in c.text][0].find_all('b')]
+        classes_short = []
+
+        for mktu in classes:
+            classes_short.append(mktu[:2])
+        
+        return classes, classes_short
 
     def unprotected(self):
         pass
@@ -79,11 +83,6 @@ class TradeMarkInfo(GetHTML):
             self.status = ' '.join(self.page_soup.find('tr', class_='Status').get_text().split())
             self.img_link = [c for c in self.page_soup.find_all('a', target='_blank')][4].get('href')
 
-            all_p_tag = self.page_soup.find_all('p', class_='bib')
-            self.goods_and_services = [goods.text.split('.')[0].replace('\n\t\t\t', '') for goods in
-                       [c for c in all_p_tag if '(511)' in c.text][0].find_all('b')]
-            for mktu in self.goods_and_services:
-                self.goods_and_services_short.append(mktu[:2])
 
             if self.page_soup.find('p', class_='StartIzvs'):
                 self.notifications.append(self.page_soup.find('p', class_='StartIzvs').text)
