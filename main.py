@@ -25,10 +25,11 @@ class UserData:
             run.add_text(f' свидетельство № {self.trademarks[i]}, ')
             run.add_text(f'{tm.get_application_date()}, {tm.get_registration_date()}, {tm.get_holder()}, ')
             run.add_text(f'зарегистрирован в отношении {", ".join(tm.get_classes()[1])}:\n')
-
-            for j in range(len(tm.get_classes()[0])):
-                if tm.get_classes()[1][j] in self.classes:
-                    run.add_text(f'{tm.get_classes()[0][j]}\n')
+            par2 = doc.add_paragraph()
+            cl = tm.get_classes()
+            for j in range(len(cl[0])):
+                if cl[1][j] in self.classes:
+                    par2.add_run(f'{cl[0][j]}\n')
 
         doc.save('temp.docx')
 
