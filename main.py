@@ -33,7 +33,7 @@ class UserData:
         doc.save('temp.docx')
 
 
-class Main:
-    def __init__(self):
-        pass
+if __name__ == '__main__':
+    u = UserData()
+    u.write_docx()
 
