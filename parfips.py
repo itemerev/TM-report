@@ -17,7 +17,7 @@ class GetHTML:
 
     def get_soup(self):
         if isinstance(self.html, requests.models.Response):
-            self.page_soup = BS(self.html.content, 'lxml')
+            self.page_soup = BS(self.html.content, 'html.parser')
 
 
 class TMData:
@@ -28,7 +28,11 @@ class TMData:
         self.html.get_soup()
 
     def get_img_link(self):  # -> str Возвращает ссылку на изображение товарного знака
-        return [c for c in self.html.page_soup.find_all('a', target='_blank')][4].get('href')
+        for i in self.html.page_soup.find_all('a', target='_blank'):
+            if 'jpg' in i.get('href').lower():
+                return i.get('href')
+
+        # return [c for c in self.html.page_soup.find_all('a', target='_blank')][4].get('href')
 
     def get_application_date(self):
         for info in self.html.page_soup.find('td', id='BibR').find_all('p'):
