@@ -1,5 +1,7 @@
+#!/usr/bin/env/python3.8
+
 import docx
-import urllib.request
+import requests
 import parfips
 
 
@@ -16,7 +18,7 @@ class UserData:
         
         for i in range(len(self.trademarks)):
             tm = parfips.TMData(int(self.trademarks[i]))
-            img = urllib.request.urlretrieve(tm.get_img_link(), 'img.jpg')
+            img = requests.get(tm.get_img_link(), 'img.jpg', verify=False)
             
             par = doc.add_paragraph()
             run = par.add_run()
