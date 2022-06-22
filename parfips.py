@@ -14,6 +14,7 @@ class GetHTML:
                 f'https://www1.fips.ru/registers-doc-view/fips_servlet?DB=RUTM&DocNumber={number}&TypeFile=html')
         except requests.exceptions.ConnectionError:
             self.html = 'Невозможно подключиться к реестру ФИПС'
+            print(self.html)
 
     def get_soup(self):
         if isinstance(self.html, requests.models.Response):
