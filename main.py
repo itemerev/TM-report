@@ -11,15 +11,16 @@ class UserData:
             data = file.readlines()
         self.trademarks = data[0].split()
         self.classes = data[1].split()
-        
 
     def write_docx(self):
         doc = docx.Document()
-        
+
         for i in range(len(self.trademarks)):
             tm = parfips.TMData(int(self.trademarks[i]))
-            img = requests.get(tm.get_img_link(), 'img.jpg', verify=False)
-            
+            img = requests.get(tm.get_img_link())
+            with open('img.jpg', 'wb') as out:
+                out.write(img.content)
+
             par = doc.add_paragraph()
             run = par.add_run()
             run.add_text(f'{i + 1}. Товарный знак ')
