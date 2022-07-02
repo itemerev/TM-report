@@ -3,6 +3,7 @@
 import docx
 import requests
 import parfips
+import time
 
 
 class UserData:
@@ -18,6 +19,7 @@ class UserData:
         for i in range(len(self.trademarks)):
             tm = parfips.TMData(int(self.trademarks[i]))
             img = requests.get(tm.get_img_link())
+
             with open('img.jpg', 'wb') as out:
                 out.write(img.content)
 
@@ -33,6 +35,7 @@ class UserData:
             for j in range(len(cl[0])):
                 if cl[1][j] in self.classes:
                     par2.add_run(f'{cl[0][j]}\n')
+            time.sleep(4)
 
         doc.save('temp.docx')
 
@@ -40,4 +43,3 @@ class UserData:
 if __name__ == '__main__':
     u = UserData()
     u.write_docx()
-
