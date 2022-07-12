@@ -18,6 +18,7 @@ class UserData:
 
         for i in range(len(self.trademarks)):
             tm = parfips.TMData(int(self.trademarks[i]))
+            time.sleep(5)
             img = requests.get(tm.get_img_link())
 
             with open('img.jpg', 'wb') as out:

@@ -39,7 +39,7 @@ class TMData:
         for info in self.html.page_soup.find('td', id='BibR').find_all('p'):
             if '(220)' in info.text:
                 return info.text.strip()[6:]
-    
+
     def get_registration_date(self):
         for info in self.html.page_soup.find('td', id='BibR').find_all('p'):
             if '(151)' in info.text:
@@ -59,7 +59,7 @@ class TMData:
 
         for mktu in classes:
             classes_short.append(mktu[:2])
-        
+
         return classes, classes_short
 
     def unprotected(self):
