@@ -30,13 +30,12 @@ class UserData:
             run.add_picture('img.jpg')
             run.add_text(f' свидетельство № {self.trademarks[i]}, ')
             run.add_text(f'{tm.get_application_date()}, {tm.get_registration_date()}, {tm.get_holder()}, ')
-            run.add_text(f'зарегистрирован в отношении {", ".join(tm.get_classes()[1])}:\n')
-            par2 = doc.add_paragraph()
+            run.add_text(f'зарегистрирован в отношении {", ".join(tm.get_classes()[1])} классов МКТУ:\n')
             cl = tm.get_classes()
             for j in range(len(cl[0])):
                 if cl[1][j] in self.classes:
-                    par2.add_run(f'{cl[0][j]}\n')
-            time.sleep(4)
+                    doc.add_paragraph().add_run(f'{cl[0][j]}\n')
+            time.sleep(5)
 
         doc.save('temp.docx')
 
