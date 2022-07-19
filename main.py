@@ -34,7 +34,9 @@ class UserData:
             cl = tm.get_classes()
             for j in range(len(cl[0])):
                 if cl[1][j] in self.classes:
-                    doc.add_paragraph().add_run(f'{cl[0][j]}\n')
+                    doc.add_paragraph().add_run(f'{cl[0][j]}.')
+            if tm.unprotected():
+                doc.add_paragraph().add_run().add_text(f'Примечание! Неохраняемые элементы товарного знака: {tm.unprotected()}')
             time.sleep(5)
 
         doc.save('temp.docx')

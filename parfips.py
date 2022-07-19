@@ -63,5 +63,7 @@ class TMData:
         return classes, classes_short
 
     def unprotected(self):
-        pass
+        for info in self.html.page_soup.find_all('p', class_='bib'):
+            if '(526)' in info.text:
+                return info.text.strip()[6:].split('\n')[2]
 
