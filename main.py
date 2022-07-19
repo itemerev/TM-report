@@ -1,6 +1,7 @@
 #!/usr/bin/env/python3.8
 
 import docx
+from docx.shared import Pt, Mm
 import requests
 import parfips
 import time
@@ -15,10 +16,14 @@ class UserData:
 
     def write_docx(self):
         doc = docx.Document()
+        style = doc.styles['Normal']
+        style.font.name = 'Arial'
+        style.font.size = Pt(11)
+        style.paragraph_format.first_line_indent = Mm(10)
 
         for i in range(len(self.trademarks)):
             tm = parfips.TMData(int(self.trademarks[i]))
-            time.sleep(5)
+            time.sleep(6)
             img = requests.get(tm.get_img_link())
 
             with open('img.jpg', 'wb') as out:
@@ -36,8 +41,10 @@ class UserData:
                 if cl[1][j] in self.classes:
                     doc.add_paragraph().add_run(f'{cl[0][j]}.')
             if tm.unprotected():
-                doc.add_paragraph().add_run().add_text(f'Примечание! Неохраняемые элементы товарного знака: {tm.unprotected()}')
-            time.sleep(5)
+                p = doc.add_paragraph()
+                p.add_run('Примечание! ').bold = True
+                p.add_run().add_text(f'Неохраняемые элементы товарного знака: {tm.unprotected()}')
+            time.sleep(6)
 
         doc.save('temp.docx')
 
