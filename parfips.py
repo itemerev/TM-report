@@ -10,8 +10,9 @@ class GetHTML:
 
     def __init__(self, number: int) -> None:
         try:
+            headers = {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/104.0.5112.102 Safari/537.36 Edg/104.0.1293.63'}
             self.html = requests.get(
-                f'https://www1.fips.ru/registers-doc-view/fips_servlet?DB=RUTM&DocNumber={number}&TypeFile=html')
+                f'https://www1.fips.ru/registers-doc-view/fips_servlet?DB=RUTM&DocNumber={number}&TypeFile=html', headers=headers)
         except requests.exceptions.ConnectionError:
             self.html = 'Невозможно подключиться к реестру ФИПС'
             print(self.html)
